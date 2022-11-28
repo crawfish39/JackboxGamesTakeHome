@@ -10,7 +10,7 @@ export default {
         filename: 'bundle.js',
         path: `${__dirname}/dist`
     },
-    devtool:'inline-source-map',
+    devtool:'eval-source-map',
     devServer: {
         host: 'localhost',
         port: '3000',
