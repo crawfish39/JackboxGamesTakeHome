@@ -16,4 +16,4 @@ Execute the following commands in your local terminal:
 1. run 'git clone [https://github.com/crawfish39/JackboxGamesTakeHome.git](https://github.com/crawfish39/JackboxGamesTakeHome.git)' to clone this application on your local machine
 2. run 'npm install' to install package dependencies.
 3. run 'npm start' to start the application.
-4. Open 'localhost:3000' in your browser to view the application.
+4. The app should open automatically in your browser but in case it doesn't, open 'localhost:3000' in your browser to view the application.
