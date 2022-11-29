@@ -11,7 +11,8 @@ export default function Box(props) {
         })
     })
 
-
+    // As I was playing around with drag and drop functionality, I ran into some issues with state management
+    // As a bandaid fix, I used vanilla DOM methods to insert games.
     const addImageToBox = (imageId) => {
         console.log('imageId',imageId);
         console.log('cell',props.cell)
