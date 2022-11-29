@@ -1,5 +1,8 @@
 import puppeteer from 'puppeteer';
 import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 (async () => {
     try {
@@ -15,9 +18,14 @@ import fs from 'fs';
         const links = await page.evaluate(() => {
             const imageCollection = document.getElementsByClassName('products elementor-grid columns-5')[1].getElementsByTagName('img')
             let srcs = [];
+            let id = 0;
             for(const image in imageCollection){
                 const link = imageCollection[image].src;
-                if(link) srcs.push(link);
+                if(link) srcs.push({
+                    "id": id,
+                    "link": link
+                });
+                id++;
             }
             
             return srcs
@@ -25,7 +33,7 @@ import fs from 'fs';
         
         await browser.close();
         
-        fs.writeFile('images.json',JSON.stringify(links), err => {
+        fs.writeFile(path.resolve(__dirname,'images.json'),JSON.stringify(links), err => {
             if(err) console.log('file writing error:',err);
             else {
                 console.log('File written successfully')
