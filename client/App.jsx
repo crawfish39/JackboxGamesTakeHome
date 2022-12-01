@@ -36,6 +36,7 @@ class App extends Component{
                 <div>
                     <DragDrop unmovedPics={this.state.unmovedPics}/>
                     <h1>Tier List Application</h1>
+                    <p>Drag the images into the table based on how much you like each game.</p>
                     <Grid
                         boxKeys={this.state.boxKeys}
                         filledBoxes={this.state.filledBoxes}
