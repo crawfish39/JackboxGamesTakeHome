@@ -10,44 +10,63 @@ class App extends Component{
         super(props);
         this.state = {
             filledBoxes: new Array(20).fill('-'),
-            unmovedPics: pics
+            unmovedPics: pics,
+            deleteIndex: 0,
+            imageId: 0
         };
         
         this.movePics = this.movePics.bind(this);
     }
 
     movePics(deleteIndex,imageId){
+        console.log('deleteIndex',deleteIndex);
+        console.log('imageId',imageId)
+        this.deletePic()
         for(const image in this.state.unmovedPics){
             if(this.state.unmovedPics[image].id === imageId){
-                const newUnmovedPics = [...this.state.unmovedPics.slice(0,imageId),...this.state.unmovedPics.slice(imageId+1)]
-                const newFilledBoxes = this.state.filledBoxes
+                const newFilledBoxes = [...this.state.filledBoxes];
+                newFilledBoxes[deleteIndex] = pics[imageId]
                 return this.setState({
-                    unmovedPics: newUnmovedPics,
-                    filledBoxes: newFilledBoxes[deleteIndex] = pics[imageId]
+                    filledBoxes: newFilledBoxes,
+                    deleteIndex: deleteIndex,
+                    imageId: imageId
                 })
             }
         }
     }
-    
 
+    componentDidUpdate(prevProps,prevState){
+        // console.log(prevState.deleteIndex, this.state.deleteIndex)
+        const dupCheck = document.getElementById(`table_${this.state.deleteIndex}`)
+        if(dupCheck.childNodes.length > 1) dupCheck.removeChild(dupCheck.lastChild) 
+        
+    }
+    
+    deletePic(){
+        const newUnmovedPics = [...this.state.unmovedPics.slice(0,this.state.imageId),...this.state.unmovedPics.slice(this.state.imageId+1)]
+        console.log(this.state.unmovedPics,newUnmovedPics)
+        // return this.setState({
+        //     unmovedPics: newUnmovedPics
+        // })
+    }
+    
     render(){
         return(
             <DndProvider backend={HTML5Backend}>
-                <div>
+                <>
                     <DragDrop unmovedPics={this.state.unmovedPics}/>
                     <h1>Tier List Application</h1>
-                    <p>Drag the images into the table based on how much you like each game.</p>
+                    <p>Drag and drop the games into the table based on how much you like each one!</p>
                     <Grid
                         boxKeys={this.state.boxKeys}
                         filledBoxes={this.state.filledBoxes}
                         unmovedPics={this.state.unmovedPics}
                         movePics={this.movePics}
                     />
-                </div>
+                </>
             </DndProvider>
         )
-        
-        }
+    }
 }
 
 export default App;

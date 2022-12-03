@@ -1,31 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDrop } from 'react-dnd';
-import pics from '../imageScraper/images.json';
+import Image from './Image.jsx';
 
 export default function Box(props) {
     const [{isOver},drop] =  useDrop({
         accept: 'img',
-        drop: (item) => addImageToBox(item.id),
+        drop: (item) => props.movePics(props.cell,item.id),
         collect: (monitor) => ({
             isOver: !!monitor.isOver()
         })
     })
 
-    // As I was playing around with drag and drop functionality, I ran into some issues with state management
-    // As a bandaid fix, I used vanilla DOM methods to insert games.
-    const addImageToBox = (imageId) => {
-        console.log('imageId',imageId);
-        console.log('cell',props.cell)
-        // props.movePics(props.cell,imageId)
-        const oImg = document.createElement("img");
-        oImg.setAttribute('src', `${pics[imageId].link}`);
-        oImg.setAttribute('height','50px')
-        document.getElementById(`table_${props.cell}`).appendChild(oImg)
-
+    const cellValue = () => {
+        return <div id={`table_${props.cell}`} style={{height:'110px',width:'120px'}}>
+                    {props.filledBox !== '-' ? 
+                    <Image id={props.filledBox.id} link={props.filledBox.link}/>
+                     : isOver}
+                </div> 
     }
+
     return (
-        <td ref={drop}>        
-            <div id={`table_${props.cell}`} style={{height:'110px',width:'110px'}}></div>
+        <td ref={drop}>
+            {
+                cellValue()
+            }   
+   
         </td>
     )
 }

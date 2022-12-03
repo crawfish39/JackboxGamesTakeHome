@@ -1,6 +1,7 @@
 import React from "react";
 import { useDrag } from "react-dnd";
 
+
 export default function Image(props) {
     const [{ isDragging },drag] = useDrag(() => ({
         type: 'img',
@@ -11,12 +12,15 @@ export default function Image(props) {
     }))
 
     return(
+        <div>
+
             <img
                 ref={drag} 
                 key={props.id} 
                 src={`${props.link}`} 
-                height='60'
-                style={{border: isDragging ? '5px solid green' : '0px'}}
+                
+                style={{height:'50px',display:'flex'}}
             ></img>
+        </div>
     )
 }

@@ -4,11 +4,11 @@ import Image from "./Image.jsx";
 
 export default function DragDrop(props){
     return (
-        <>
-            <div className="Pictures" >{props.unmovedPics.map(el => {
-                return <Image id={el.id} link={el.link}/>
+        <div>
+            <div className="Pictures" style={{display:'flex', flexWrap: 'wrap', maxWidth: '100%'}}>{props.unmovedPics.map(el => {
+                return <Image id={el.id} link={el.link} />
             })}
             </div>
-        </>
+        </div>
     )
 }

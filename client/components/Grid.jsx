@@ -26,7 +26,7 @@ export default function Grid(props){
     }
             return(
                 <>           
-                <style>{"table,th,td{border:1px solid black;}"}</style>
+                <style>{"table,th,td{border:1px solid black}"}</style>
                 <table className="table">
                     <tr>{columns}</tr>
                     {tableGen()}
